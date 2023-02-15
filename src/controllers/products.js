@@ -23,6 +23,17 @@ const listProduct = async (request, response) => {
     }));
 }
 
+const deleteProduct = async (request, response) => {
+
+    const { productID } = request.params;
+
+    await model.deleteOne({ productID: productID }).catch((e) => console.log(e.message));
+
+    response.status(200).end(JSON.stringify({
+        status: 'success',
+    }));
+}
+
 const listAllProduct = async (request, response) => {
 
     let products = await model.find({}).catch((e) => console.log(e.message));
@@ -65,4 +76,36 @@ const addProduct = async (request, response) => {
     }))
 }
 
-module.exports = { listProduct, listAllProduct, addProduct };
+const updateProduct = async (request, response) => {
+
+    const { productID } = request.params;
+
+    const { productName, qtyPerUnit, unitPrice, unitInStock, discontinued, categoryID } = request.body;
+
+    let updatedProduct = {
+        productName: `${productName}`,
+        qtyPerUnit: qtyPerUnit,
+        unitPrice: unitPrice,
+        unitInStock: unitInStock,
+        discontinued: discontinued,
+        categoryID: categoryID,
+    };
+
+    let product = await model.findOneAndUpdate({ productID: productID }, updatedProduct).catch((e) => console.log(e.message));
+
+    if (product) {
+
+        response.status(200).end(JSON.stringify({
+            status: 'success',
+        }))
+
+        return;
+    }
+
+    response.status(400).end(JSON.stringify({
+        status: 'error',
+        error: 'product not exist',
+    }));
+}
+
+module.exports = { listProduct, listAllProduct, addProduct, deleteProduct, updateProduct };
