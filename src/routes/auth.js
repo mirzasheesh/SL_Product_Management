@@ -6,18 +6,18 @@ const { listProduct, listAllProduct, addProduct, deleteProduct, updateProduct } 
 
 /* Categories */
 
-router.get('/category/all', listAllCategory); // List Categories
-router.get('/category/:categoryID', listCategory); // Get Category
-router.delete('/category/:categoryID', deleteCategory); // Remove Category
-router.post('/category', addCategory); // Add New Category
-router.put('/category/:categoryID', updateCategory); // Update Category
+router.get('/category/readAll', listAllCategory); // List Categories
+router.get('/category/read/:categoryID', listCategory); // Get Category
+router.delete('/category/delete/:categoryID', deleteCategory); // Remove Category
+router.post('/category/create', addCategory); // Add New Category
+router.put('/category/update/:categoryID', updateCategory); // Update Category
 
 /* Products */
 
-router.get('/product/all', listAllProduct); // List Products
-router.get('/product/:productID', listProduct); // Get Product
-router.delete('/product/:productID', deleteProduct); // Remove Product
-router.post('/product', addProduct); // Add New Product
-router.put('/product/:productID', updateProduct); // Update Product
+router.get('/product/readAll', listAllProduct); // List Products
+router.get('/product/read/:productID', listProduct); // Get Product
+router.delete('/product/delete/:productID', deleteProduct); // Remove Product
+router.post('/product/create', addProduct); // Add New Product
+router.put('/product/update/:productID', updateProduct); // Update Product
 
 module.exports = router;
