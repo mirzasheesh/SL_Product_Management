@@ -23,6 +23,26 @@ const listCategory = async (request, response) => {
     }));
 }
 
+const listAllCategory = async (request, response) => {
+
+    let categories = await model.find({}).catch((e) => console.log(e.message));
+
+    if (categories) {
+
+        response.status(200).end(JSON.stringify({
+            status: 'success',
+            categories: categories,
+        }));
+
+        return;
+    }
+
+    response.status(400).end(JSON.stringify({
+        status: 'error',
+        error: 'categories not exist',
+    }));
+}
+
 const addCategory = async (request, response) => {
 
     const { categoryName } = request.body;
@@ -40,4 +60,4 @@ const addCategory = async (request, response) => {
     }))
 }
 
-module.exports = { listCategory, addCategory };
+module.exports = { listCategory, listAllCategory, addCategory };

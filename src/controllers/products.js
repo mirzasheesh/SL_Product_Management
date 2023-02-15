@@ -23,6 +23,26 @@ const listProduct = async (request, response) => {
     }));
 }
 
+const listAllProduct = async (request, response) => {
+
+    let products = await model.find({}).catch((e) => console.log(e.message));
+
+    if (products) {
+
+        response.status(200).end(JSON.stringify({
+            status: 'success',
+            products: products,
+        }));
+
+        return;
+    }
+
+    response.status(400).end(JSON.stringify({
+        status: 'error',
+        error: 'products not exist',
+    }));
+}
+
 const addProduct = async (request, response) => {
 
     const { productName, qtyPerUnit, unitPrice, unitInStock, discontinued, categoryID } = request.body;
@@ -45,4 +65,4 @@ const addProduct = async (request, response) => {
     }))
 }
 
-module.exports = { listProduct, addProduct };
+module.exports = { listProduct, listAllProduct, addProduct };
